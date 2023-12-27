@@ -16,13 +16,15 @@ class Publisher
     ) {
     }
 
-    public function publish(string $topicArn, string $myparcelcomPaymentId, DateTimeInterface $paidAt): Promise
+    public function publish(string $topicArn, string $myparcelcomPaymentId, ?DateTimeInterface $paidAt = null): Promise
     {
+        $payload = [
+            'myparcelcom_payment_id' => $myparcelcomPaymentId,
+            'paid_at'                => $paidAt?->format(DateTimeInterface::ATOM),
+        ];
+
         return $this->snsClient->publishAsync([
-            'Message'  => Utils::jsonEncode([
-                'myparcelcom_payment_id' => $myparcelcomPaymentId,
-                'paid_at'                => $paidAt->format(DateTimeInterface::ATOM),
-            ]),
+            'Message'  => Utils::jsonEncode(array_filter($payload, static fn ($value) => $value !== null)),
             'TopicArn' => $topicArn,
         ]);
     }

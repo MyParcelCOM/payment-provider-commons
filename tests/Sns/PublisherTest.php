@@ -45,4 +45,30 @@ class PublisherTest extends TestCase
         $publisher = new Publisher($snsClient);
         $publisher->publish($topicArn, $myparcelcomPaymentId, $paidAt);
     }
+
+    public function test_it_publishes_without_paid_at(): void
+    {
+        $faker = Factory::create();
+
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
+        $myparcelcomPaymentId = $faker->uuid;
+
+        $snsClient = Mockery::mock(SnsClient::class, function (MockInterface & SnsClient $mock) use (
+            $topicArn,
+            $myparcelcomPaymentId
+        ) {
+            $mock
+                ->expects('publishAsync')
+                ->with([
+                    'Message'  => json_encode([
+                        'myparcelcom_payment_id' => $myparcelcomPaymentId,
+                    ], JSON_THROW_ON_ERROR),
+                    'TopicArn' => $topicArn,
+                ])
+                ->andReturns(Mockery::mock(Promise::class));
+        });
+
+        $publisher = new Publisher($snsClient);
+        $publisher->publish($topicArn, $myparcelcomPaymentId);
+    }
 }
