@@ -5,7 +5,7 @@
     "require": {
         "aws/aws-sdk-php": "^3.295",
         "laravel/framework": "^10.39",
-        "php": "^8.2"
+        "php": "^8.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",
@@ -16,6 +16,11 @@
     "autoload": {
         "psr-4": {
             "MyParcelCom\\Payments\\Providers\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "authors": [
