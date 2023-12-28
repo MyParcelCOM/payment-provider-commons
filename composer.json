@@ -2,6 +2,7 @@
     "name": "myparcelcom/payment-provider-commons",
     "description": "Library with common classes used for constructing MyParcel.com payment provider integrations",
     "type": "library",
+    "license": "Apache-2.0",
     "require": {
         "aws/aws-sdk-php": "^3.295",
         "laravel/framework": "^10.39",
