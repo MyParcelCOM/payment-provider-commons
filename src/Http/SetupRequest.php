@@ -16,13 +16,19 @@ class SetupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data.broker_id' => 'required|string|uuid',
-            'data.settings'  => 'array',
+            'data.broker_id'    => 'required|string|uuid',
+            'data.settings'     => 'array',
+            'data.redirect_url' => 'url',
         ];
     }
 
     public function brokerId(): string
     {
         return $this->input('data.broker_id');
+    }
+
+    public function redirectUrl(): ?string
+    {
+        return $this->input('data.redirect_url');
     }
 }
