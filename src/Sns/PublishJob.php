@@ -19,13 +19,21 @@ class PublishJob implements ShouldQueue
         private readonly string $topicArn,
         private readonly string $myparcelcomPaymentId,
         private readonly ?DateTimeInterface $paidAt = null,
+        private readonly ?FailureCode $failureCode = null,
+        private readonly ?string $failureMessage = null,
     ) {
     }
 
     public function handle(Publisher $publisher): void
     {
         $publisher
-            ->publish($this->topicArn, $this->myparcelcomPaymentId, $this->paidAt)
+            ->publish(
+                $this->topicArn,
+                $this->myparcelcomPaymentId,
+                $this->paidAt,
+                $this->failureCode,
+                $this->failureMessage,
+            )
             ->wait();
     }
 }

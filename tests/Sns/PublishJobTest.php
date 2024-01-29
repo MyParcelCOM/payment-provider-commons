@@ -35,7 +35,13 @@ class PublishJobTest extends TestCase
             $paidAt
         ) {
             $mock->expects('publish')
-                ->with($topicArn, $myparcelcomPaymentId, $paidAt)
+                ->with(
+                    $topicArn,
+                    $myparcelcomPaymentId,
+                    $paidAt,
+                    null,
+                    null,
+                )
                 ->andReturns($snsPromise);
         });
 
