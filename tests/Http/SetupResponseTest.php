@@ -6,6 +6,7 @@ namespace Tests\Http;
 
 use Faker\Factory;
 use Illuminate\Http\Request;
+use JsonException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\Payments\Providers\Http\SetupResponse;
@@ -28,6 +29,9 @@ class SetupResponseTest extends TestCase
         assertEmpty($response->getContent());
     }
 
+    /**
+     * @throws JsonException
+     */
     public function test_it_returns_json_response_when_authorization_url_is_set(): void
     {
         $faker = Factory::create();

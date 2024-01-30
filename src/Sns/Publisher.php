@@ -18,19 +18,30 @@ class Publisher
     ) {
     }
 
-    public function publish(string $topicArn, string $myparcelcomPaymentId, ?DateTimeInterface $paidAt = null): PromiseInterface
-    {
-        $payload = [
+    public function publish(
+        string $topicArn,
+        string $myparcelcomPaymentId,
+        ?DateTimeInterface $paidAt = null,
+        ?FailureCode $failureCode = null,
+        ?string $failureMessage = null,
+    ): PromiseInterface {
+        if ($paidAt === null && $failureCode === null) {
+            throw new EmptyPayloadException();
+        }
+
+        $payload = array_filter([
             'myparcelcom_payment_id' => $myparcelcomPaymentId,
             'paid_at'                => $paidAt?->format(DateTimeInterface::ATOM),
-        ];
+            'failure_code'           => $failureCode?->value,
+            'failure_message'        => $failureMessage,
+        ], static fn ($value) => $value !== null);
 
         if (Env::get('APP_ENV') === 'local') {
             return $this->localClient->publish($payload);
         }
 
         return $this->snsClient->publishAsync([
-            'Message'  => Utils::jsonEncode(array_filter($payload, static fn ($value) => $value !== null)),
+            'Message'  => Utils::jsonEncode($payload),
             'TopicArn' => $topicArn,
         ]);
     }
