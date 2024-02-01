@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Payments\Providers\Sns;
+namespace MyParcelCom\Payments\Providers\Publish;
 
 use RuntimeException;
 

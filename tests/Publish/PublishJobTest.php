@@ -9,8 +9,9 @@ use GuzzleHttp\Promise\Promise;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
-use MyParcelCom\Payments\Providers\Sns\Publisher;
-use MyParcelCom\Payments\Providers\Sns\PublishJob;
+use MyParcelCom\Payments\Providers\Publish\Message;
+use MyParcelCom\Payments\Providers\Publish\Publisher;
+use MyParcelCom\Payments\Providers\Publish\PublishJob;
 use PHPUnit\Framework\TestCase;
 
 class PublishJobTest extends TestCase
@@ -20,32 +21,23 @@ class PublishJobTest extends TestCase
     public function test_it_handles_publish_job(): void
     {
         $faker = Factory::create();
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $myparcelcomPaymentId = $faker->uuid;
-        $paidAt = $faker->dateTime;
 
         $snsPromise = Mockery::mock(Promise::class, function (MockInterface & Promise $mock) {
             $mock->expects('wait');
         });
 
+        $message = Mockery::mock(Message::class);
+
         $publisher = Mockery::mock(Publisher::class, function (MockInterface & Publisher $mock) use (
             $snsPromise,
-            $topicArn,
-            $myparcelcomPaymentId,
-            $paidAt
-        ) {
+            $message) {
             $mock->expects('publish')
-                ->with(
-                    $topicArn,
-                    $myparcelcomPaymentId,
-                    $paidAt,
-                    null,
-                    null,
-                )
+                ->with($message)
                 ->andReturns($snsPromise);
         });
 
-        $job = new PublishJob($topicArn, $myparcelcomPaymentId, $paidAt);
+
+        $job = new PublishJob($message);
         $job->handle($publisher);
     }
 }
