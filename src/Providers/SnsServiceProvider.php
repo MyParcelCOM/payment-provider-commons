@@ -5,8 +5,8 @@ namespace MyParcelCom\Payments\Providers\Providers;
 use Aws\Sns\SnsClient;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
-use MyParcelCom\Payments\Providers\Sns\LocalClient;
-use MyParcelCom\Payments\Providers\Sns\Publisher;
+use MyParcelCom\Payments\Providers\Publish\LocalClient;
+use MyParcelCom\Payments\Providers\Publish\Publisher;
 
 class SnsServiceProvider extends ServiceProvider
 {
