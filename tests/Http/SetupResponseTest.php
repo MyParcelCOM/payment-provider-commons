@@ -36,7 +36,7 @@ class SetupResponseTest extends TestCase
     {
         $faker = Factory::create();
 
-        $authorizationUrl = $faker->url;
+        $authorizationUrl = $faker->url();
 
         $setupResponse = new SetupResponse($authorizationUrl);
 

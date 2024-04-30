@@ -26,9 +26,9 @@ class PublisherTest extends TestCase
     {
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $myparcelcomPaymentId = $faker->uuid;
-        $paidAt = $faker->dateTime;
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
+        $myparcelcomPaymentId = $faker->uuid();
+        $paidAt = $faker->dateTime();
 
         $snsClient = Mockery::mock(SnsClient::class, function (MockInterface & SnsClient $mock) use (
             $topicArn,
@@ -60,10 +60,10 @@ class PublisherTest extends TestCase
     {
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $myparcelcomPaymentId = $faker->uuid;
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
+        $myparcelcomPaymentId = $faker->uuid();
         $failureCode = $faker->randomElement(FailureCode::cases());
-        $failureMessage = $faker->sentence;
+        $failureMessage = $faker->sentence();
 
         $snsClient = Mockery::mock(SnsClient::class, function (MockInterface & SnsClient $mock) use (
             $topicArn,
@@ -97,7 +97,7 @@ class PublisherTest extends TestCase
     {
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
         $shopId = $faker->uuid;
 
         $snsClient = Mockery::mock(SnsClient::class, function (MockInterface & SnsClient $mock) use (
@@ -130,9 +130,9 @@ class PublisherTest extends TestCase
         putenv('APP_ENV=local');
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $myparcelcomPaymentId = $faker->uuid;
-        $paidAt = $faker->dateTime;
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
+        $myparcelcomPaymentId = $faker->uuid();
+        $paidAt = $faker->dateTime();
 
         $localClient = Mockery::mock(LocalClient::class, function (MockInterface & LocalClient $mock) use (
             $myparcelcomPaymentId,
@@ -162,11 +162,11 @@ class PublisherTest extends TestCase
         putenv('APP_ENV=local');
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $myparcelcomPaymentId = $faker->uuid;
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
+        $myparcelcomPaymentId = $faker->uuid();
         /** @var FailureCode $failureCode */
         $failureCode = $faker->randomElement(FailureCode::cases());
-        $failureMessage = $faker->sentence;
+        $failureMessage = $faker->sentence();
 
         $localClient = Mockery::mock(LocalClient::class, function (MockInterface & LocalClient $mock) use (
             $myparcelcomPaymentId,
@@ -198,8 +198,8 @@ class PublisherTest extends TestCase
         putenv('APP_ENV=local');
         $faker = Factory::create();
 
-        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word}";
-        $shopId = $faker->uuid;
+        $topicArn = "arn:aws:sns:eu-west-1:{$faker->randomNumber()}:{$faker->word()}";
+        $shopId = $faker->uuid();
 
         $localClient = Mockery::mock(LocalClient::class, function (MockInterface & LocalClient $mock) use (
             $shopId

@@ -22,9 +22,9 @@ class CreateTransactionResponseTest extends TestCase
     {
         $faker = Factory::create();
 
-        $transactionId = $faker->uuid;
-        $checkoutUrl = $faker->url;
-        $expiresAt = $faker->dateTime;
+        $transactionId = $faker->uuid();
+        $checkoutUrl = $faker->url();
+        $expiresAt = $faker->dateTime();
 
         $createTransactionResponse = new CreateTransactionResponse(
             transactionId: $transactionId,
