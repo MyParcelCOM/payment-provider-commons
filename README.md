@@ -10,5 +10,5 @@ docker run --rm --mount type=bind,source="$(pwd)",target=/app composer:2 compose
 ## Run tests
 You can run the test through docker:
 ```shell
-docker run -v $(pwd):/app --rm -w /app php:8.3-cli vendor/bin/phpunit
+docker run --rm --mount type=bind,source="$(pwd)",target=/app -w /app php:8.3-cli vendor/bin/phpunit
 ```

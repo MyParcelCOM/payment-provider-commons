@@ -23,6 +23,7 @@ class CreateTransactionRequest extends FormRequest
             'data.locale'                 => 'required|string|regex:/^[a-z]{2}_[A-Z]{2}$/',
             'data.redirect_url'           => 'required|url',
             'data.cancel_url'             => 'required|url',
+            'meta'                        => 'array',
         ];
     }
 
@@ -59,5 +60,10 @@ class CreateTransactionRequest extends FormRequest
     public function cancelUrl(): string
     {
         return $this->input('data.cancel_url');
+    }
+
+    public function meta(): array
+    {
+        return $this->input('meta', []);
     }
 }
